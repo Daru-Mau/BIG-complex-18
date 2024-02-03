@@ -1,0 +1,22 @@
+
+name: Trigger CKB Platform
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger CKB Platform
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "commit_sha":"${{ github.sha }}",
+          "branch":"${{ github.ref }}",
+          "commit_message":"${{ github.event.head_commit.message }}",
+          "author":"${{ github.actor }}",
+          "repo":"${{ github.repository }}"
+        }'         https://dl529nfz-8000.euw.devtunnels.ms/aes/webhook-endpoint
+                    
